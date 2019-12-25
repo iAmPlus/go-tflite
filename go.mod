@@ -1,4 +1,4 @@
-module github.com/mattn/go-tflite
+module github.com/iAmPlus/go-tflite
 
 go 1.13
 
