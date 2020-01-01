@@ -6,7 +6,6 @@ package edgetpu
 #include <edgetpu_c.h>
 #endif
 #cgo LDFLAGS: -ledgetpu
-#cgo LDFLAGS: -Wl,-unresolved-symbols=ignore-all
 */
 import "C"
 import (

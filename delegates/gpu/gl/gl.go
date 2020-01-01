@@ -4,8 +4,7 @@ package gl
 #ifndef GO_TFLITE_H
 #include "gl.go.h"
 #endif
-#cgo LDFLAGS: -Ltensorflowlite_c -Ltensorflowlite_c_delegate_gpu
-#cgo LDFLAGS: -Wl,-unresolved-symbols=ignore-all
+#cgo LDFLAGS: -ltensorflowlite_c -ltensorflowlite_c_delegate_gpu
 #cgo linux LDFLAGS: -ldl
 */
 import "C"

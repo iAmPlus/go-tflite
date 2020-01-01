@@ -30,7 +30,6 @@ void destroyDelegate(void *f, TfLiteDelegate *delegate) {
 
 #cgo LDFLAGS: -L/tensorflow/lite/c
 #cgo LDFLAGS: -L/usr/local/lib/tensorflow/lite
-#cgo LDFLAGS: -Wl,-unresolved-symbols=ignore-all
 */
 import "C"
 import (
