@@ -20,8 +20,7 @@ package ops
 #cgo CXXFLAGS: -I${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/tools/make/downloads/farmhash/src
 #cgo CXXFLAGS: -I${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/tools/make/downloads/absl
 #cgo LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/c -lre2 -ltensorflow-lite
-#cgo LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/c -Ltensorflowlite_c
-#cgo LDFLAGS: -Wl,-unresolved-symbols=ignore-all
+#cgo LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/c -ltensorflowlite_c
 #cgo windows amd64 LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/tools/make/gen/windows_x86_64/lib
 #cgo linux amd64 LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/tools/make/gen/linux_x86_64/lib
 #cgo linux arm32 LDFLAGS: -L${SRCDIR}/../../../../../tensorflow/tensorflow/tensorflow/lite/tools/make/gen/rpi_armv7l/lib

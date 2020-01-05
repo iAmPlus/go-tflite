@@ -18,7 +18,6 @@ package ops
 #cgo CXXFLAGS: -I/tensorflow/lite/tools/make/downloads/farmhash/src
 #cgo CXXFLAGS: -I/tensorflow/lite/tools/make/downloads/absl
 #cgo LDFLAGS: -L/tensorflow/lite/c -ltensorflow-lite
-#cgo LDFLAGS: -Wl,-unresolved-symbols=ignore-all
 #cgo windows amd64 LDFLAGS: -L/tensorflow/lite/tools/make/gen/windows_x86_64/lib
 #cgo linux amd64 LDFLAGS: -L/tensorflow/lite/tools/make/gen/linux_x86_64/lib
 #cgo linux arm32 LDFLAGS: -L/tensorflow/lite/tools/make/gen/rpi_armv7l/lib
