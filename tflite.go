@@ -7,13 +7,13 @@ package tflite
 #include "tflite.go.h"
 #endif
 #cgo android,linux LDFLAGS: -ltensorflowlite_c
-#cgo darwin,arm64 LDFLAGS: -framework TensorFlowLiteC
 #cgo linux LDFLAGS: -ldl
 #cgo android LDFLAGS: -llog
 #cgo !android,!darwin,linux LDFLAGS: -L${SRCDIR}/third_party/tensorflow/libs/linux_x86/
 #cgo android,arm64 LDFLAGS: -L${SRCDIR}/third_party/tensorflow/libs/android/arm64-v8a/
 #cgo android,arm LDFLAGS: -L${SRCDIR}/third_party/tensorflow/libs/android/armeabi-v7a/
-#cgo darwin,arm64 LDFLAGS: -F${SRCDIR}/third_party/tensorflow/libs/ios/arm64/
+#cgo darwin,arm64 LDFLAGS: -F${SRCDIR}/third_party/tensorflow/libs/ios/arm64/ -framework TensorFlowLiteC
+#cgo darwin,amd64 LDFLAGS: -L${SRCDIR}/third_party/tensorflow/libs/darwin_x86_64/ -ltensorflowlite_c
 */
 import "C"
 import (
