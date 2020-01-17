@@ -10,7 +10,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/mattn/go-tflite/delegates"
+	"github.com/iAmPlus/go-tflite/delegates"
 )
 
 // GpuCompileOptions implement TfLiteGpuCompileOptions.
@@ -32,14 +32,14 @@ type GpuDelegate struct {
 func New(options *GpuDelegateOptions) delegates.Delegater {
 	var d *C.TfLiteDelegate
 	/*
-		if options != nil {
-			var o C.struct_TfLiteGpuDelegateOptions_New
-			o.compile_options.precision_loss_alloed = C.int32_t( options.GpuCompileOptions.PrecisionLossAllowed)
-			o.compile_options.inference_priority = C.int32_t( options.GpuCompileOptions.InferencePriority)
-			d = C.TfLiteGpuDelegateCreate_New(o)
-		} else {
-			d = C.TfLiteGpuDelegateCreate_New(nil)
-		}
+	   if options != nil {
+	       var o C.struct_TfLiteGpuDelegateOptions_New
+	       o.compile_options.precision_loss_alloed = C.int32_t( options.GpuCompileOptions.PrecisionLossAllowed)
+	       o.compile_options.inference_priority = C.int32_t( options.GpuCompileOptions.InferencePriority)
+	       d = C.TfLiteGpuDelegateCreate_New(o)
+	   } else {
+	       d = C.TfLiteGpuDelegateCreate_New(nil)
+	   }
 	*/
 	d = C.TfLiteGpuDelegateCreate_New(nil)
 	if d == nil {

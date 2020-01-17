@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mattn/go-tflite"
-	"github.com/mattn/go-tflite/delegates/edgetpu"
+	"github.com/iAmPlus/go-tflite"
+	"github.com/iAmPlus/go-tflite/delegates/edgetpu"
 )
 
 func bin(n int, num_digits int) []uint8 {
 	f := make([]byte, num_digits)
 	for i := uint(0); i < uint(num_digits); i++ {
-		f[i] = uint8((n >> i) & 1) * 255
+		f[i] = uint8((n>>i)&1) * 255
 	}
 	return f[:]
 }

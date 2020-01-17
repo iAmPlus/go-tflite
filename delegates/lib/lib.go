@@ -8,24 +8,24 @@ package lib
 #include <stdio.h>
 
 void reportError(const char * err) {
-	printf("error creating TFLiteDelegate: %s\n", err);
+    printf("error creating TFLiteDelegate: %s\n", err);
 }
 
 TfLiteDelegate* createDelegate(void *f) {
-	// char **options_keys
-	// char **options_values
+    // char **options_keys
+    // char **options_values
 
-	TfLiteDelegate* (*tflite_plugin_create_delegate)(char **, char **, size_t, void (*)(const char *));
-  	tflite_plugin_create_delegate = (TfLiteDelegate* (*)(char **, char **, size_t, void (*)(const char *)))f;
+    TfLiteDelegate* (*tflite_plugin_create_delegate)(char **, char **, size_t, void (*)(const char *));
+    tflite_plugin_create_delegate = (TfLiteDelegate* (*)(char **, char **, size_t, void (*)(const char *)))f;
 
-  	return tflite_plugin_create_delegate(NULL, NULL, 0, &reportError);
+    return tflite_plugin_create_delegate(NULL, NULL, 0, &reportError);
 }
 
 void destroyDelegate(void *f, TfLiteDelegate *delegate) {
-	void (*tflite_plugin_destroy_delegate)(void*);
-  	tflite_plugin_destroy_delegate = (void (*)(void*))f;
+    void (*tflite_plugin_destroy_delegate)(void*);
+    tflite_plugin_destroy_delegate = (void (*)(void*))f;
 
-	tflite_plugin_destroy_delegate((void*)delegate);
+    tflite_plugin_destroy_delegate((void*)delegate);
 }
 
 #cgo LDFLAGS: -L/tensorflow/lite/c
@@ -37,7 +37,7 @@ import (
 	"unsafe"
 
 	"github.com/coreos/pkg/dlopen"
-	"github.com/mattn/go-tflite/delegates"
+	"github.com/iAmPlus/go-tflite/delegates"
 )
 
 // LibDelegate implement Delegater
