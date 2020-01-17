@@ -15,8 +15,8 @@ import (
 	"reflect"
 	"unsafe"
 
+	"github.com/iAmPlus/go-tflite/delegates"
 	"github.com/mattn/go-pointer"
-	"github.com/mattn/go-tflite/delegates"
 )
 
 //go:generate stringer -type TensorType,Status -output type_string.go .
