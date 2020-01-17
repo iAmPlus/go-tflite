@@ -4,7 +4,6 @@ package tflite
 #ifndef GO_TFLITE_H
 #include "tflite.go.h"
 #endif
-#cgo LDFLAGS: -framework TensorFlowLiteC
 #cgo linux LDFLAGS: -ldl
 */
 import "C"
