@@ -4,7 +4,6 @@ package cl
 #ifndef GO_TFLITE_H
 #include "cl.go.h"
 #endif
-#cgo LDFLAGS: -ltensorflowlite_c -ltensorflowlite_c_delegate_gpu
 #cgo linux LDFLAGS: -ldl
 */
 import "C"
