@@ -1,11 +1,14 @@
 package tflite
 
 /*
+
+#cgo CFLAGS: -I${SRCDIR}/third_party/tensorflow/headers
 #ifndef GO_TFLITE_H
 #include "tflite.go.h"
 #endif
 #cgo LDFLAGS: -ltensorflowlite_c
 #cgo linux LDFLAGS: -ldl
+#cgo linux LDFLAGS: -L${SRCDIR}/third_party/tensorflow/libs/linux_x86/
 */
 import "C"
 import (

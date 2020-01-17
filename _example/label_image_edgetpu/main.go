@@ -10,8 +10,8 @@ import (
 	"os"
 	"sort"
 
-	"github.com/mattn/go-tflite"
-	"github.com/mattn/go-tflite/delegates/edgetpu"
+	"github.com/iAmPlus/go-tflite"
+	"github.com/iAmPlus/go-tflite/delegates/edgetpu"
 	"github.com/nfnt/resize"
 )
 
@@ -76,7 +76,7 @@ func main() {
 	}
 	fmt.Printf("EdgeTPU Version: %s\n", edgetpuVersion)
 	edgetpu.Verbosity(verbosity)
-	
+
 	options := tflite.NewInterpreterOptions()
 	options.SetNumThread(4)
 	options.SetErrorReporter(func(msg string, user_data interface{}) {

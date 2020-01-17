@@ -13,7 +13,7 @@ import (
 	"os"
 
 	"github.com/disintegration/imaging"
-	"github.com/mattn/go-tflite"
+	"github.com/iAmPlus/go-tflite"
 )
 
 func predict(img image.Image, mpredict string) ([]float32, error) {

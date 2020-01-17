@@ -11,9 +11,9 @@ import (
 	"math"
 	"os"
 
+	"github.com/iAmPlus/go-tflite"
 	"github.com/llgcode/draw2d/draw2dimg"
 	"github.com/llgcode/draw2d/draw2dkit"
-	"github.com/mattn/go-tflite"
 	"github.com/nfnt/resize"
 )
 
@@ -128,27 +128,27 @@ func buildPartWithScoreQueue(scoreThreshold float64, r int, scores *tflite.Tenso
 }
 
 var colors = [21]color.RGBA{
-	color.RGBA{R: 0, G: 0, B: 0, A: 100},
-	color.RGBA{R: 128, G: 0, B: 0, A: 100},
-	color.RGBA{R: 0, G: 128, B: 0, A: 100},
-	color.RGBA{R: 128, G: 128, B: 0, A: 100},
-	color.RGBA{R: 0, G: 0, B: 128, A: 100},
-	color.RGBA{R: 128, G: 0, B: 128, A: 100},
-	color.RGBA{R: 0, G: 128, B: 128, A: 100},
-	color.RGBA{R: 128, G: 128, B: 128, A: 100},
-	color.RGBA{R: 64, G: 0, B: 0, A: 100},
-	color.RGBA{R: 192, G: 0, B: 0, A: 100},
-	color.RGBA{R: 64, G: 128, B: 0, A: 100},
-	color.RGBA{R: 192, G: 128, B: 0, A: 100},
-	color.RGBA{R: 64, G: 0, B: 128, A: 100},
-	color.RGBA{R: 192, G: 0, B: 128, A: 100},
-	color.RGBA{R: 64, G: 128, B: 128, A: 100},
-	color.RGBA{R: 192, G: 128, B: 128, A: 100},
-	color.RGBA{R: 0, G: 64, B: 0, A: 100},
-	color.RGBA{R: 128, G: 64, B: 0, A: 100},
-	color.RGBA{R: 0, G: 192, B: 0, A: 100},
-	color.RGBA{R: 128, G: 192, B: 0, A: 100},
-	color.RGBA{R: 0, G: 64, B: 128, A: 100},
+	{R: 0, G: 0, B: 0, A: 100},
+	{R: 128, G: 0, B: 0, A: 100},
+	{R: 0, G: 128, B: 0, A: 100},
+	{R: 128, G: 128, B: 0, A: 100},
+	{R: 0, G: 0, B: 128, A: 100},
+	{R: 128, G: 0, B: 128, A: 100},
+	{R: 0, G: 128, B: 128, A: 100},
+	{R: 128, G: 128, B: 128, A: 100},
+	{R: 64, G: 0, B: 0, A: 100},
+	{R: 192, G: 0, B: 0, A: 100},
+	{R: 64, G: 128, B: 0, A: 100},
+	{R: 192, G: 128, B: 0, A: 100},
+	{R: 64, G: 0, B: 128, A: 100},
+	{R: 192, G: 0, B: 128, A: 100},
+	{R: 64, G: 128, B: 128, A: 100},
+	{R: 192, G: 128, B: 128, A: 100},
+	{R: 0, G: 64, B: 0, A: 100},
+	{R: 128, G: 64, B: 0, A: 100},
+	{R: 0, G: 192, B: 0, A: 100},
+	{R: 128, G: 192, B: 0, A: 100},
+	{R: 0, G: 64, B: 128, A: 100},
 }
 
 type Circle struct {

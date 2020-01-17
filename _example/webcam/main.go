@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mattn/go-tflite"
+	tflite "github.com/iAmPlus/go-tflite"
 	"golang.org/x/image/colornames"
 
 	"github.com/faiface/pixel"
