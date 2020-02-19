@@ -41,7 +41,8 @@ You must install Tensorflow Lite C API. Assuming the source is under /source/dir
 ### Build Tensorflow lite c libraries
 * Android ARM64 - ```bazel build -c opt --cxxopt=--std=c++11 --config=android_arm64 //tensorflow/lite/c:tensorflowlite_c```
 * Android ARM - ```bazel build -c opt --cxxopt=--std=c++11 --config=android_arm //tensorflow/lite/c:tensorflowlite_c```
-* IOS iPhones - ```bazel build --config=ios_arm64 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework``` OR ```bazel build --config=ios --ios_multi_cpus=arm64 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework```
+* IOS iPhones ARM64 - ```bazel build --config=ios_arm64 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework``` OR ```bazel build --config=ios --ios_multi_cpus=arm64 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework```
+* IOS iPhones ARMV7 - ```bazel build --config=ios_armv7 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework``` OR ```bazel build --config=ios --ios_multi_cpus=armv7 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework```
 * IOS Simulator - ```bazel build --config=ios --ios_multi_cpus=x86_64 -c opt //tensorflow/lite/experimental/ios:TensorFlowLiteC_framework```
 
 
