@@ -29,14 +29,14 @@ var (
 )
 
 type ssdResult struct {
-	loc   [][4]float32
+	loc   []float32
 	clazz []float32
 	score []float32
 	mat   gocv.Mat
 }
 
 type ssdClass struct {
-	loc   [4]float32
+	loc   []float32
 	score float64
 	index int
 }
@@ -59,6 +59,12 @@ func loadLabels(filename string) ([]string, error) {
 	return labels, nil
 }
 
+func copySlice(f []float32) []float32 {
+	ff := make([]float32, len(f), len(f))
+	copy(ff, f)
+	return ff
+}
+
 func detect(ctx context.Context, wg *sync.WaitGroup, resultChan chan<- *ssdResult, interpreter *tflite.Interpreter, wanted_width, wanted_height, wanted_channels int, cam *gocv.VideoCapture) {
 	defer wg.Done()
 	defer close(resultChan)
@@ -71,15 +77,6 @@ func detect(ctx context.Context, wg *sync.WaitGroup, resultChan chan<- *ssdResul
 		qp.Scale = 1
 	}
 
-	var loc [1][20][4]float32
-	var clazz [1][20]float32
-	var score [1][20]float32
-	var nums [1]float32
-
-	output1 := interpreter.GetOutputTensor(0)
-	output2 := interpreter.GetOutputTensor(1)
-	output3 := interpreter.GetOutputTensor(2)
-	output4 := interpreter.GetOutputTensor(3)
 	for {
 		select {
 		case <-ctx.Done():
@@ -98,8 +95,19 @@ func detect(ctx context.Context, wg *sync.WaitGroup, resultChan chan<- *ssdResul
 		}
 
 		resized := gocv.NewMat()
-		gocv.Resize(frame, &resized, image.Pt(wanted_width, wanted_height), 0, 0, gocv.InterpolationDefault)
-		copy(input.UInt8s(), resized.DataPtrUint8())
+		if input.Type() == tflite.Float32 {
+			frame.ConvertTo(&resized, gocv.MatTypeCV32F)
+			gocv.Resize(resized, &resized, image.Pt(wanted_width, wanted_height), 0, 0, gocv.InterpolationDefault)
+			ff, err := resized.DataPtrFloat32()
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			copy(input.Float32s(), ff)
+		} else {
+			gocv.Resize(frame, &resized, image.Pt(wanted_width, wanted_height), 0, 0, gocv.InterpolationDefault)
+			copy(input.UInt8s(), resized.DataPtrUint8())
+		}
 		resized.Close()
 		status := interpreter.Invoke()
 		if status != tflite.OK {
@@ -107,16 +115,10 @@ func detect(ctx context.Context, wg *sync.WaitGroup, resultChan chan<- *ssdResul
 			return
 		}
 
-		output1.CopyToBuffer(&loc[0])
-		output2.CopyToBuffer(&clazz[0])
-		output3.CopyToBuffer(&score[0])
-		output4.CopyToBuffer(&nums[0])
-		num := int(nums[0])
-
 		resultChan <- &ssdResult{
-			loc:   loc[0][:num],
-			clazz: clazz[0][:num],
-			score: score[0][:num],
+			loc:   copySlice(interpreter.GetOutputTensor(0).Float32s()),
+			clazz: copySlice(interpreter.GetOutputTensor(1).Float32s()),
+			score: copySlice(interpreter.GetOutputTensor(2).Float32s()),
 			mat:   frame,
 		}
 	}
@@ -138,7 +140,8 @@ func main() {
 
 	cam, err := gocv.OpenVideoCapture(*video)
 	if err != nil {
-		log.Fatal("failed reading cam", err)
+		log.Printf("cannot open camera: %v", err)
+		return
 	}
 	defer cam.Close()
 
@@ -149,23 +152,27 @@ func main() {
 
 	model := tflite.NewModelFromFile(*modelPath)
 	if model == nil {
-		log.Fatal("cannot load model")
+		log.Println("cannot load model")
+		return
 	}
 	defer model.Delete()
 
 	// Get the list of devices
 	devices, err := edgetpu.DeviceList()
 	if err != nil {
-		log.Fatalf("Could not get EdgeTPU devices: %v", err)
+		log.Printf("could not get EdgeTPU devices: %v", err)
+		return
 	}
 	if len(devices) == 0 {
-		log.Fatal("No edge TPU devices found")
+		log.Print("no edge TPU devices found")
+		return
 	}
 
 	// Print the EdgeTPU version
 	edgetpuVersion, err := edgetpu.Version()
 	if err != nil {
-		log.Fatalf("Could not get EdgeTPU version: %v", err)
+		log.Printf("could not get EdgeTPU version: %v", err)
+		return
 	}
 	fmt.Printf("EdgeTPU Version: %s\n", edgetpuVersion)
 	edgetpu.Verbosity(*verbosity)
@@ -177,13 +184,15 @@ func main() {
 
 	interpreter := tflite.NewInterpreter(model, options)
 	if interpreter == nil {
-		log.Fatal("cannot create interpreter")
+		log.Println("cannot create interpreter")
+		return
 	}
 	defer interpreter.Delete()
 
 	status := interpreter.AllocateTensors()
 	if status != tflite.OK {
-		log.Fatal("allocate failed")
+		log.Print("allocate failed")
+		return
 	}
 
 	input := interpreter.GetInputTensor(0)
@@ -226,7 +235,7 @@ func main() {
 			if score < 0.6 {
 				continue
 			}
-			classes = append(classes, ssdClass{loc: result.loc[i], score: score, index: int(result.clazz[i])})
+			classes = append(classes, ssdClass{loc: result.loc[i*4 : i*4+4], score: score, index: int(result.clazz[i])})
 		}
 		sort.Slice(classes, func(i, j int) bool {
 			return classes[i].score > classes[j].score
@@ -258,7 +267,7 @@ func main() {
 		window.IMShow(result.mat)
 		result.mat.Close()
 
-		k := window.WaitKey(10)
+		k := window.WaitKey(1)
 		if k == 0x1b {
 			break
 		}

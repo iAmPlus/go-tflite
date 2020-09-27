@@ -129,7 +129,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	"github.com/iAmPlus/go-tflite"
+	"github.com/mattn/go-tflite"
 )
 
 func wrap(p *C.TfLiteRegistration) *tflite.ExpRegistration {

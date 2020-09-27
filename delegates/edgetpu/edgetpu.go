@@ -1,11 +1,14 @@
 package edgetpu
 
+// +build !windows
+
 /*
 #ifndef GO_EDGETPU_H
 #include "edgetpu.go.h"
 #include <edgetpu_c.h>
 #endif
 #cgo LDFLAGS: -ledgetpu
+
 */
 import "C"
 import (
@@ -49,25 +52,22 @@ func New(device Device) delegates.Delegater {
 }
 
 // Delete the delegate
-func (etpu *Delegate) Delete() {
-	C.edgetpu_free_delegate(etpu.d)
+func (d *Delegate) Delete() {
+	C.edgetpu_free_delegate(d.d)
 }
 
 // Return a pointer
-func (etpu *Delegate) Ptr() unsafe.Pointer {
-	return unsafe.Pointer(etpu.d)
+func (d *Delegate) Ptr() unsafe.Pointer {
+	return unsafe.Pointer(d.d)
 }
 
 // Version fetches the EdgeTPU runtime version information
 func Version() (string, error) {
-
 	version := C.edgetpu_version()
 	if version == nil {
 		return "", fmt.Errorf("could not get version")
 	}
-	defer C.free(unsafe.Pointer(version))
 	return C.GoString(version), nil
-
 }
 
 // Verbosity sets the edgetpu verbosity
@@ -77,7 +77,6 @@ func Verbosity(v int) {
 
 // DeviceList fetches a list of devices
 func DeviceList() ([]Device, error) {
-
 	// Fetch the list of devices
 	var numDevices C.size_t
 	cDevices := C.edgetpu_list_devices(&numDevices)
