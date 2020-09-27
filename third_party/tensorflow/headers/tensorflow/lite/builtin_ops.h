@@ -151,6 +151,8 @@ typedef enum {
   kTfLiteBuiltinScatterNd = 122,
   kTfLiteBuiltinSelectV2 = 123,
   kTfLiteBuiltinDensify = 124,
+  kTfLiteBuiltinSegmentSum = 125,
+  kTfLiteBuiltinBatchMatmul = 126,
 } TfLiteBuiltinOperator;
 
 #ifdef __cplusplus
