@@ -8,8 +8,8 @@ import (
 	"log"
 	"math"
 
-	"github.com/mattn/go-tflite"
-	_ "github.com/mattn/go-tflite/_example/xor_embedded/statik"
+	"github.com/iAmPlus/go-tflite"
+	_ "github.com/iAmPlus/go-tflite/_example/xor_embedded/statik"
 	"github.com/rakyll/statik/fs"
 )
 

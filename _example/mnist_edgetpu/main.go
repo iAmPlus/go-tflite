@@ -8,8 +8,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/mattn/go-tflite"
-	"github.com/mattn/go-tflite/delegates/edgetpu"
+	"github.com/iAmPlus/go-tflite"
+	"github.com/iAmPlus/go-tflite/delegates/edgetpu"
 	"github.com/nfnt/resize"
 )
 

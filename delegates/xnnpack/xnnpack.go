@@ -10,7 +10,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/mattn/go-tflite/delegates"
+	"github.com/iAmPlus/go-tflite/delegates"
 )
 
 type DelegateOptions struct {

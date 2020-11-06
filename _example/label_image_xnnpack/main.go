@@ -10,8 +10,8 @@ import (
 	"os"
 	"sort"
 
-	"github.com/mattn/go-tflite"
-	"github.com/mattn/go-tflite/delegates/xnnpack"
+	"github.com/iAmPlus/go-tflite"
+	"github.com/iAmPlus/go-tflite/delegates/xnnpack"
 	"github.com/nfnt/resize"
 )
 
